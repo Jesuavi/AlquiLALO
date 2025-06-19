@@ -48,7 +48,7 @@
 .login-button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #ce7208; /* Verde */
+  background-color: #ce7208; 
   color: white;
   border: none;
   border-radius: 4px;
@@ -58,7 +58,7 @@
 }
 
 .login-button:hover {
-  background-color: #ce7208;
+  background-color: #944009;
 }
 
 .register-prompt {
@@ -70,11 +70,15 @@
   display: inline-block;
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: #2196F3; /* Azul */
+  background-color: #2196F3; 
   color: white;
   text-decoration: none;
   border-radius: 4px;
   font-size: 0.9rem;
+}
+
+.register-button:hover {
+  background-color: #0b7dda;
 }
 
 .register-button:hover {
