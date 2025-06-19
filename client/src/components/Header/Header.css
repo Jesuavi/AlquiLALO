@@ -34,3 +34,20 @@
   color: #fff;
   font-size: 20px;
 }
+
+.login-btn {
+  background-color: transparent;
+  border: 2px solid rgb(243, 75, 24);
+  color: rgb(255, 255, 255);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.login-btn:hover {
+  background-color: rgb(243, 75, 24);
+  color: #003366;
+}
