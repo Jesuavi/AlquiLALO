@@ -11,7 +11,9 @@ const Header = () => {
         <a href="#faq">FAQ</a>
         <a href="#contacto">Contacto</a>
       </nav>
-      <div className="profile-icon">👤</div>
+      <div classname="auth-buttons">
+          <button className="login-btn">Iniciar Sesión</button>
+      </div>
     </header>
   );
 };
