@@ -1,8 +1,49 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
 import "./RegisterPage.css";
+import React, { useState } from "react";
+
 
 const RegisterPage = () => {
+  
+  const [formData, setFormData] = useState({
+    nombre: "",
+    apellido: "",
+    fechaNacimiento: "",
+    correo: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nombre: formData.nombre,
+          correo: formData.correo,
+          telefono: "04140000000",
+          fotoURL: ""
+        })
+      });
+
+      const data = await res.json();
+      console.log("✅ Respuesta del backend:", data);
+      alert("Registro exitoso");
+    } catch (error) {
+      console.error("❌ Error en el registro:", error);
+      alert("Error en el registro");
+    }
+  };
   return (
     <div className="register-page">
       <div className="register-container">
