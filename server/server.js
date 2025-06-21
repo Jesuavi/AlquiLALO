@@ -1,20 +1,23 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // para parsear JSON en las peticiones
 
-const authRoutes = require("./routes/auth");
-app.use("/api", authRoutes);
+// Rutas
+app.use('/api', authRoutes);
 
-app.get('/api/ping', (req, res) => {
-  res.json({ message: 'Servidor funcionando correctamente' });
+// Ruta base
+app.get('/', (req, res) => {
+  res.send('API de AlquiLALO funcionando correctamente 🚀');
 });
 
+// Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
