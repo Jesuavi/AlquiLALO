@@ -22,6 +22,8 @@ const handleLogin = async (e) => {
     );
     console.log("✅ Usuario autenticado:", userCredential.user);
     alert("Sesión iniciada correctamente");
+    // Guarda el usuario en localStorage
+    localStorage.setItem("usuario", JSON.stringify(userCredential.user));
     // aquí puedes redirigir, por ejemplo: navigate("/home")
   } catch (error) {
     console.error("❌ Error al iniciar sesión:", error.message);

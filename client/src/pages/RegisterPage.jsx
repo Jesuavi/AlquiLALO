@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import "./RegisterPage.css";
 import React, { useState } from "react";
@@ -12,7 +11,8 @@ const RegisterPage = () => {
     fechaNacimiento: "",
     correo: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    telefono: "" // <-- agrega esto
   });
 
   const handleChange = (e) => {
@@ -22,6 +22,11 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.correo.endsWith("@correo.unimet.edu.ve")) {
+      alert("Solo se permiten correos @correo.unimet.edu.ve");
+      return;
+    }
+
     try {
       const res = await fetch("http://localhost:5000/api/register", {
         method: "POST",
@@ -29,9 +34,13 @@ const RegisterPage = () => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
+          email: formData.correo,
           nombre: formData.nombre,
-          correo: formData.correo,
-          telefono: "04140000000",
+          apellido: formData.apellido,
+          fechaNacimiento: formData.fechaNacimiento,
+          password: formData.password,
+          telefono: formData.telefono,
+          rol: "INSTITUCIONAL", // <-- agrega esto
           fotoURL: ""
         })
       });
@@ -39,6 +48,8 @@ const RegisterPage = () => {
       const data = await res.json();
       console.log("✅ Respuesta del backend:", data);
       alert("Registro exitoso");
+      // Guarda el usuario en localStorage
+      localStorage.setItem("usuario", JSON.stringify(data));
     } catch (error) {
       console.error("❌ Error en el registro:", error);
       alert("Error en el registro");
@@ -62,11 +73,14 @@ const RegisterPage = () => {
           <span>o</span>
         </div>
 
-        <form className="register-form">
+        <form className="register-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Nombre</label>
             <input 
               type="text" 
+              name="nombre"
+              value={formData.nombre}
+              onChange={handleChange}
               placeholder="Ej: Juan" 
               required 
             />
@@ -76,6 +90,9 @@ const RegisterPage = () => {
             <label>Apellido</label>
             <input 
               type="text" 
+              name="apellido"
+              value={formData.apellido}
+              onChange={handleChange}
               placeholder="Ej: Pérez" 
               required 
             />
@@ -85,6 +102,9 @@ const RegisterPage = () => {
             <label>Fecha de nacimiento</label>
             <input 
               type="date" 
+              name="fechaNacimiento"
+              value={formData.fechaNacimiento}
+              onChange={handleChange}
               required 
             />
           </div>
@@ -93,7 +113,10 @@ const RegisterPage = () => {
             <label>Email</label>
             <input 
               type="email" 
-              placeholder="ejemplo@unimet.edu.ve" 
+              name="correo"
+              value={formData.correo}
+              onChange={handleChange}
+              placeholder="ejemplo@correo.unimet.edu.ve" 
               required 
             />
           </div>
@@ -102,6 +125,9 @@ const RegisterPage = () => {
             <label>Contraseña</label>
             <input 
               type="password" 
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="••••••" 
               required 
             />
@@ -111,7 +137,22 @@ const RegisterPage = () => {
             <label>Confirmar contraseña</label>
             <input 
               type="password" 
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
               placeholder="••••••" 
+              required 
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Teléfono</label>
+            <input 
+              type="tel" 
+              name="telefono"
+              value={formData.telefono}
+              onChange={handleChange}
+              placeholder="Ej: 0414-1234567" 
               required 
             />
           </div>
