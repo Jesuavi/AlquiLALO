@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json()); // para parsear JSON en las peticiones
 
 // Rutas
-app.use('/api', authRoutes);
+app.use('/api/auth', authRoutes); // <- Rutas de autenticación correctamente montadas
 
 // Ruta base
 app.get('/', (req, res) => {
