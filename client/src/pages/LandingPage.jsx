@@ -1,83 +1,71 @@
 import React, { useState } from "react";
 import "../styles/LandingPage.css";
-import axios from "axios";
 
 const LandingPage = () => {
-  const [filters, setFilters] = useState({
-    fecha: "",
-    hora: "",
-    duracion: "",
-    capacidad: "",
-  });
+  // Estados para los filtros
+  const [fecha, setFecha] = useState("");
+  const [hora, setHora] = useState("");
+  const [duracion, setDuracion] = useState("");
+  const [capacidad, setCapacidad] = useState("");
 
-  const [espacios, setEspacios] = useState([]);
-
-  const handleChange = (e) => {
-    setFilters({ ...filters, [e.target.name]: e.target.value });
-  };
-
-  const handleBuscar = async () => {
-    try {
-      const res = await axios.get("http://localhost:3001/api/espacios/disponibles", {
-        params: filters,
-      });
-      setEspacios(res.data);
-    } catch (error) {
-      console.error("Error al buscar espacios:", error);
-    }
+  // Función de búsqueda (más adelante enviará datos al backend)
+  const handleBuscar = () => {
+    const filtros = { fecha, hora, duracion, capacidad };
+    console.log("Filtros seleccionados:", filtros);
+    // Aquí podrías enviar a una API con fetch o axios
   };
 
   return (
     <section className="fold">
       <h1>Organiza. Selecciona. Alquilalo.</h1>
-      <p>
-        Gestiona espacios para eventos, clases o reuniones desde cualquier
-        dispositivo con AlquiLALO.
-      </p>
+      <p>Gestiona espacios para eventos, clases o reuniones desde cualquier dispositivo con AlquiLALO.</p>
 
       <div className="search-bar">
-        <input type="date" name="fecha" value={filters.fecha} onChange={handleChange} />
-        <input type="time" name="hora" value={filters.hora} onChange={handleChange} />
-        <select name="duracion" value={filters.duracion} onChange={handleChange}>
-          <option disabled value="">Duración del evento</option>
-          <option value="45">45 minutos</option>
-          <option value="90">1 hora 30 min</option>
-          <option value="120">2 horas</option>
-          <option value="180">3 horas</option>
-          <option value="360">6 horas</option>
-          <option value="720">12 horas</option>
-          <option value="1440">24 horas</option>
+        <input
+          type="date"
+          value={fecha}
+          onChange={(e) => setFecha(e.target.value)}
+        />
+        <input
+          type="time"
+          value={hora}
+          onChange={(e) => setHora(e.target.value)}
+        />
+        <select
+          value={duracion}
+          onChange={(e) => setDuracion(e.target.value)}
+        >
+          <option disabled value="">
+            Duración del evento
+          </option>
+          <option>45 minutos</option>
+          <option>1 hora 30 min</option>
+          <option>2 horas</option>
+          <option>3 horas</option>
+          <option>6 horas</option>
+          <option>12 horas</option>
+          <option>24 horas</option>
         </select>
-        <select name="capacidad" value={filters.capacidad} onChange={handleChange}>
-          <option disabled value="">Visitantes</option>
-          <option value="50">0 - 50</option>
-          <option value="100">51 - 100</option>
-          <option value="200">101 - 200</option>
-          <option value="300">201 - 300</option>
-          <option value="500">301 - 500</option>
+        <select
+          value={capacidad}
+          onChange={(e) => setCapacidad(e.target.value)}
+        >
+          <option disabled value="">
+            Visitantes
+          </option>
+          <option>0 - 50</option>
+          <option>51 - 100</option>
+          <option>101 - 200</option>
+          <option>201 - 300</option>
+          <option>301 - 500</option>
         </select>
       </div>
 
-      <button className="cta-button" onClick={handleBuscar}>Buscar</button>
-
-      {/* Mostrar resultados */}
-      <section className="results">
-        {espacios.length > 0 ? (
-          espacios.map((espacio, i) => (
-            <div key={i} className="result-card">
-              <h3>{espacio.nombre}</h3>
-              <p>Capacidad: {espacio.capacidad}</p>
-              <p>Tipo: {espacio.tipo}</p>
-              <p>Ubicación: {espacio.ubicacion}</p>
-            </div>
-          ))
-        ) : (
-          <p>No se encontraron espacios aún.</p>
-        )}
-      </section>
+      <button className="cta-button" onClick={handleBuscar}>
+        Buscar
+      </button>
     </section>
   );
 };
 
 export default LandingPage;
-
