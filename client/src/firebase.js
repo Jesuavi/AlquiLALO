@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 
 // Exportar servicios
 const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
 const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider();
 
-export { app, auth, googleProvider, db };
+export { auth, db, googleProvider };

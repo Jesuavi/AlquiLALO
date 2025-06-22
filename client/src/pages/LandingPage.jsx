@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../LandingPage.css";
+import "../pages/LandingPage.css";
 
 const LandingPage = () => {
   const [fecha, setFecha] = useState("");

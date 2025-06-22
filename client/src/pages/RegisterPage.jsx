@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
 import React, { useState } from "react";
-
+import { db, auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const RegisterPage = () => {
-  
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
@@ -27,32 +30,36 @@ const RegisterPage = () => {
       return;
     }
 
+    if (formData.password !== formData.confirmPassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
     try {
-      const res = await fetch("http://localhost:5000/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: formData.correo,
-          nombre: formData.nombre,
-          apellido: formData.apellido,
-          fechaNacimiento: formData.fechaNacimiento,
-          password: formData.password,
-          telefono: formData.telefono,
-          rol: "INSTITUCIONAL", // <-- agrega esto
-          fotoURL: ""
-        })
+      // 1. Registrar usuario en Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.correo,
+        formData.password
+      );
+      const user = userCredential.user;
+
+      // 2. Guardar datos adicionales en Firestore
+      await setDoc(doc(db, "usuarios", user.uid), {
+        nombre: formData.nombre,
+        apellido: formData.apellido,
+        fechaNacimiento: formData.fechaNacimiento,
+        correo: formData.correo,
+        telefono: formData.telefono,
+        fotoURL: user.photoURL || "",
+        rol: "INSTITUCIONAL"
       });
 
-      const data = await res.json();
-      console.log("✅ Respuesta del backend:", data);
       alert("Registro exitoso");
-      // Guarda el usuario en localStorage
-      localStorage.setItem("usuario", JSON.stringify(data));
+      localStorage.setItem("usuario", JSON.stringify(user));
+      navigate("/login"); // <-- redirige a inicio de sesión
     } catch (error) {
-      console.error("❌ Error en el registro:", error);
-      alert("Error en el registro");
+      alert("Error en el registro: " + error.message);
     }
   };
   return (
