@@ -11,7 +11,7 @@ app.use(express.json()); // para parsear JSON en las peticiones
 
 // Rutas
 app.use('/api/auth', authRoutes); // <- Rutas de autenticación correctamente montadas
-
+app.use("/api/espacios", espaciosRoutes);
 // Ruta base
 app.get('/', (req, res) => {
   res.send('API de AlquiLALO funcionando correctamente 🚀');
