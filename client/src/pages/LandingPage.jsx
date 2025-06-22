@@ -10,13 +10,7 @@ const LandingPage = () => {
 
   const handleBuscar = async () => {
     try {
-      const params = new URLSearchParams({
-        fecha,
-        hora,
-        duracion,
-        capacidad,
-      });
-
+      const params = new URLSearchParams({ fecha, hora, duracion, capacidad });
       const res = await fetch(`http://localhost:5000/api/espacios/filtrar?${params}`);
       const data = await res.json();
       setEspacios(data.resultados);
@@ -28,10 +22,7 @@ const LandingPage = () => {
   return (
     <section className="fold">
       <h1>Organiza. Selecciona. Alquilalo.</h1>
-      <p>
-        Gestiona espacios para eventos, clases o reuniones desde cualquier
-        dispositivo con AlquiLALO.
-      </p>
+      <p>Gestiona espacios para eventos, clases o reuniones desde cualquier dispositivo con AlquiLALO.</p>
 
       <div className="search-bar">
         <input type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
@@ -58,7 +49,6 @@ const LandingPage = () => {
 
       <button className="cta-button" onClick={handleBuscar}>Buscar</button>
 
-      {/* Mostrar resultados */}
       <div className="resultados">
         {espacios.length > 0 ? (
           <div className="features-list">
@@ -79,4 +69,5 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+
 
