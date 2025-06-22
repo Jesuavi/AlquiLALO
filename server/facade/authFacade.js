@@ -1,29 +1,28 @@
-// src/api/authFacade.js
-import { auth, db } from "../firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+const { UsuarioInstitucional, Administrador } = require("../models/Usuario");
 
-const registerUser = async ({ nombre, apellido, fechaNacimiento, email, password, telefono, rol }) => {
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  const user = userCredential.user;
+class AuthFacade {
+  constructor() {
+    // Simulación de base de datos en memoria 
+    this.usuarios = new Map(); // key = correo, value = instancia de Usuario
+  }
 
-  await updateProfile(user, {
-    displayName: `${nombre} ${apellido}`
-  });
+  registrarUsuario(tipo, id, nombre, correo, telefono, fotoURL) {
+    let nuevoUsuario;
+    if (tipo === "INSTITUCIONAL") {
+      nuevoUsuario = new UsuarioInstitucional(id, nombre, correo, telefono, fotoURL);
+    } else if (tipo === "ADMIN") {
+      nuevoUsuario = new Administrador(id, nombre, correo, telefono, fotoURL);
+    } else {
+      throw new Error("Tipo de usuario no válido");
+    }
 
-  await setDoc(doc(db, "usuarios", user.uid), {
-    nombre,
-    apellido,
-    fechaNacimiento,
-    correo: email,
-    telefono,
-    rol,
-    fotoURL: user.photoURL || ""
-  });
+    this.usuarios.set(correo, nuevoUsuario);
+    return nuevoUsuario;
+  }
 
-  return user;
-};
+  obtenerUsuario(correo) {
+    return this.usuarios.get(correo) || null;
+  }
+}
 
-export default {
-  registerUser,
-};
+module.exports = new AuthFacade();
