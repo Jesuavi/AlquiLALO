@@ -57,41 +57,24 @@
 .cta-button:hover {
   background-color: #e95f00;
 }
-.section-title {
+
+.resultados {
+  margin-top: 40px;
   text-align: center;
-  font-size: 36px;
-  margin-bottom: 30px;
 }
 
-.proof-grid {
+.features-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
-  text-align: center;
-}
-
-.proof-box {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  flex: 1 1 200px;
-}
-
-.video-preview {
-  text-align: center;
-}
-
-.iframe-wrapper {
-  display: flex;
   justify-content: center;
+  gap: 24px;
+  padding: 10px;
 }
 
-.video-preview iframe {
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 720px;
-  height: 400px;
+.feature {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  width: 260px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
