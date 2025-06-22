@@ -12,7 +12,6 @@ const LandingPage = () => {
   const handleBuscar = () => {
     const filtros = { fecha, hora, duracion, capacidad };
     console.log("Filtros seleccionados:", filtros);
-    // Aquí podrías enviar a una API con fetch o axios
   };
 
   return (
