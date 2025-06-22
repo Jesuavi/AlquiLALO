@@ -84,6 +84,15 @@ npm v9 o superior
 
 Navegador moderno (Chrome, Edge, Firefox)
 
+## 🌐 Deploy en Producción (Firebase Hosting)
+
+El proyecto está desplegado en Firebase Hosting y accesible en el siguiente enlace:
+
+🔗 [https://alquilalo-2d7b6.web.app](https://alquilalo-2d7b6.web.app)
+
+Este enlace carga la versión más reciente del frontend, construida con React y conectada al backend mediante la ruta `/api`. Se actualiza tras cada despliegue con `firebase deploy`.
+
+
 📌 Notas
 La carpeta node_modules no se incluye en el ZIP ni en GitHub.
 
