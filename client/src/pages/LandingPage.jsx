@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "../pages/LandingPage.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";import "../pages/LandingPage.css";
 
 const LandingPage = () => {
   const [fecha, setFecha] = useState("");
@@ -21,8 +23,17 @@ const LandingPage = () => {
 
   return (
     <section className="fold">
+      <div className="background-carousel">
+      <Slider autoplay={true} autoplaySpeed={4000} speed={700} infinite={true} arrows={true} dots={true} pauseOnHover={false}>
+        <div><img src="/img/img3.jpg" alt="IMG 1" /></div>
+        <div><img src="/img/img2.jpg" alt="IMG 2" /></div>
+        <div><img src="/img/img4.jpg" alt="IMG 4" /></div>
+        <div><img src="/img/img5.jpg" alt="IMG 5" /></div>
+        <div><img src="/img/img6.jpg" alt="IMG 6" /></div>
+    </Slider>
+      </div>
       <h1>Organiza. Selecciona. Alquilalo.</h1>
-      <p>Gestiona espacios para eventos, clases o reuniones desde cualquier dispositivo con AlquiLALO.</p>
+      <p className="bold-text">Gestiona espacios para eventos, clases o reuniones desde cualquier dispositivo con AlquiLALO.</p>
 
       <div className="search-bar">
         <input type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
