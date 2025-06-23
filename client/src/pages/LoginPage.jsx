@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Para el botón de Registrarse
+import { Link, useNavigate } from "react-router-dom"; // Agrega useNavigate
 import "./LoginPage.css";
 import { auth, googleProvider } from "../firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
@@ -7,6 +7,7 @@ import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ correo: "", password: "" });
+  const navigate = useNavigate(); // Inicializa el hook
 
 const handleChange = (e) => {
   setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +25,7 @@ const handleLogin = async (e) => {
     alert("Sesión iniciada correctamente");
     // Guarda el usuario en localStorage
     localStorage.setItem("usuario", JSON.stringify(userCredential.user));
-    // aquí puedes redirigir, por ejemplo: navigate("/home")
+    navigate("/"); // Redirige a la página de inicio
   } catch (error) {
     console.error("❌ Error al iniciar sesión:", error.message);
     alert("Error al iniciar sesión: " + error.message);
@@ -36,6 +37,7 @@ const handleGoogleLogin = async () => {
     const result = await signInWithPopup(auth, googleProvider);
     console.log("✅ Login con Google:", result.user);
     alert("Sesión iniciada con Google");
+    navigate("/"); // Redirige a la página de inicio
   } catch (error) {
     console.error("❌ Error al iniciar con Google:", error.message);
     alert("Error con Google: " + error.message);
