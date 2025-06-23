@@ -72,7 +72,7 @@ const LandingPage = () => {
             ))}
           </div>
         ) : (
-          <p style={{ marginTop: "20px" }}>No hay resultados aún.</p>
+          <p style={{ marginTop: "20px" }}>No hay resultados aún.</p>  //este mensaje se desactiva cuando se realiza una búsqueda filtrada (opcion mas adelante implementada)
         )}
       </div>
     </section>
