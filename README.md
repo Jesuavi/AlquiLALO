@@ -105,3 +105,4 @@ El proyecto es totalmente responsive y usa animaciones AOS para una mejor experi
 Desarrollado por el equipo 1
 AlquiLALO.
 
+prueba vercel
